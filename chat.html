@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telos AI - Chat</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script type="module" src="js/app.js"></script>
+</head>
+<body>
+    <div class="chat-container">
+        <header class="chat-header">
+            <div class="header-left">
+                <div class="logo-small">
+                    <svg width="40" height="40" viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="45" fill="#6366f1" />
+                        <text x="50" y="70" font-size="40" text-anchor="middle" fill="white" font-family="Arial" font-weight="bold">T</text>
+                    </svg>
+                </div>
+                <h2>Telos AI</h2>
+            </div>
+            <div class="header-right">
+                <div class="credits-badge" id="credits-display">Créditos: 10</div>
+                <div class="user-menu">
+                    <span id="user-name">Usuário</span>
+                    <div class="user-avatar" id="user-avatar">👤</div>
+                </div>
+                <button onclick="window.location.href='/settings.html'" style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">⚙️</button>
+            </div>
+        </header>
+
+        <div class="chat-messages" id="chat-messages">
+            <div class="message assistant-message">
+                <div class="message-avatar">🤖</div>
+                <div class="message-content">
+                    Olá! Sou o assistente Telos AI. Como posso ajudar você hoje?
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-input-area">
+            <textarea id="message-input" placeholder="Digite sua mensagem..." rows="3"></textarea>
+            <button class="send-button" onclick="sendMessage()">Enviar</button>
+        </div>
+    </div>
+
+    <script type="module">
+        import { TelosAI } from './js/app.js';
+        
+        const app = new TelosAI();
+        
+        window.sendMessage = async function() {
+            const input = document.getElementById('message-input');
+            const message = input.value.trim();
+            
+            if (message) {
+                input.value = '';
+                await app.sendMessage(message);
+            }
+        };
+
+        // Handle Enter key (but allow Shift+Enter for new line)
+        document.getElementById('message-input').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        // Update credits display
+        async function updateCredits() {
+            if (app.creditsManager) {
+                const credits = await app.creditsManager.getAvailableCredits();
+                document.getElementById('credits-display').textContent = `Créditos: ${credits}`;
+            }
+        }
+
+        // Update credits every minute
+        setInterval(updateCredits, 60000);
+    </script>
+</body>
+</html>
