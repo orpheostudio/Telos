@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bem-vindo ao Telos AI</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script type="module" src="js/app.js"></script>
+</head>
+<body>
+    <div class="welcome-container">
+        <div class="welcome-header">
+            <svg width="80" height="80" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="45" fill="#6366f1" />
+                <text x="50" y="70" font-size="40" text-anchor="middle" fill="white" font-family="Arial" font-weight="bold">T</text>
+                <path d="M30 30 L70 70 M70 30 L30 70" stroke="white" stroke-width="5" stroke-linecap="round"/>
+            </svg>
+            <h1>Bem-vindo ao Telos AI!</h1>
+            <p>Estamos felizes em tê-lo conosco</p>
+        </div>
+
+        <div class="welcome-content">
+            <div class="welcome-card">
+                <h3>🎉 Seus créditos iniciais</h3>
+                <div class="credit-info">
+                    <span class="credit-amount" id="credits-amount">10</span>
+                    <span>créditos gratuitos para começar</span>
+                </div>
+                <p style="margin-top: 1rem; color: #666;">Ganhe mais créditos diariamente ou assine um de nossos planos para créditos ilimitados!</p>
+            </div>
+
+            <div style="text-align: center; margin: 2rem 0;">
+                <h2>Próximos passos</h2>
+            </div>
+
+            <div class="tutorial-step" onclick="window.location.href='/tutorial.html'" style="cursor: pointer;">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Fazer Tutorial</h3>
+                    <p>Aprenda como usar todas as funcionalidades do Telos AI em poucos minutos</p>
+                </div>
+            </div>
+
+            <div class="tutorial-step" onclick="window.location.href='/chat.html'" style="cursor: pointer;">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Começar a Usar</h3>
+                    <p>Inicie uma conversa com nossa IA e descubra seu potencial</p>
+                </div>
+            </div>
+
+            <div class="tutorial-step" onclick="window.location.href='/settings.html'" style="cursor: pointer;">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Configurar Preferências</h3>
+                    <p>Personalize sua experiência com o Telos AI</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem;">
+            <button class="cta-primary" onclick="window.location.href='/tutorial.html'">Continuar para Tutorial</button>
+        </div>
+    </div>
+
+    <script type="module">
+        import { AuthManager } from './js/auth.js';
+        
+        const auth = new AuthManager();
+        
+        async function loadUserCredits() {
+            const user = await auth.getCurrentUser();
+            if (user) {
+                const profile = await auth.getUserProfile(user.id);
+                if (profile) {
+                    document.getElementById('credits-amount').textContent = profile.credits;
+                }
+            }
+        }
+        
+        loadUserCredits();
+    </script>
+</body>
+</html>
