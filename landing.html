@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telos AI - Inteligência Artificial Avançada</title>
+    <meta name="description" content="Telos AI - Plataforma de IA com sistema de créditos, integração Mistral e interface intuitiva">
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+        crossorigin="anonymous"></script>
+    
+    <!-- LGPD Consent -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        
+        // LGPD consent
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'analytics_storage': 'denied',
+            'functionality_storage': 'granted',
+            'personalization_storage': 'denied',
+            'security_storage': 'granted'
+        });
+    </script>
+</head>
+<body>
+    <div class="landing-container">
+        <div class="hero-section">
+            <div class="logo-large">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#10b981;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <circle cx="50" cy="50" r="45" fill="url(#logoGradient)" />
+                    <text x="50" y="70" font-size="40" text-anchor="middle" fill="white" font-family="Arial" font-weight="bold">T</text>
+                    <path d="M30 30 L70 70 M70 30 L30 70" stroke="white" stroke-width="5" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <h1>Telos AI</h1>
+            <p class="tagline">Inteligência Artificial ao seu alcance</p>
+            <div class="cta-buttons">
+                <a href="/auth.html" class="cta-primary">Começar Agora</a>
+                <a href="#features" class="cta-secondary">Conhecer Recursos</a>
+            </div>
+        </div>
+
+        <div id="features" class="features-section">
+            <div class="feature-card">
+                <div class="feature-icon">🤖</div>
+                <h3>IA Avançada</h3>
+                <p>Tecnologia Mistral AI para respostas precisas e naturais</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <h3>Sistema de Créditos</h3>
+                <p>10 créditos gratuitos diários. Planos flexíveis para todas as necessidades</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>Segurança e Privacidade</h3>
+                <p>100% compatível com LGPD. Seus dados estão protegidos</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Interface Intuitiva</h3>
+                <p>Design moderno e fácil de usar, inspirado no Manus AI</p>
+            </div>
+        </div>
+
+        <div class="plans-container">
+            <div class="plan-card">
+                <div class="plan-name">Gratuito</div>
+                <div class="plan-price">R$ 0 <span>/mês</span></div>
+                <ul class="plan-features">
+                    <li>10 créditos diários</li>
+                    <li>Acesso básico à IA</li>
+                    <li>Suporte por email</li>
+                </ul>
+                <button class="plan-button" onclick="window.location.href='/auth.html'">Começar Grátis</button>
+            </div>
+            
+            <div class="plan-card popular">
+                <div class="popular-badge">Mais Popular</div>
+                <div class="plan-name">Básico</div>
+                <div class="plan-price">R$ 9,99 <span>/mês</span></div>
+                <ul class="plan-features">
+                    <li>100 créditos diários</li>
+                    <li>Acesso prioritário</li>
+                    <li>Suporte prioritário</li>
+                    <li>Histórico de conversas</li>
+                </ul>
+                <button class="plan-button" onclick="window.location.href='/auth.html?plan=basic'">Assinar</button>
+            </div>
+            
+            <div class="plan-card">
+                <div class="plan-name">Profissional</div>
+                <div class="plan-price">R$ 29,99 <span>/mês</span></div>
+                <ul class="plan-features">
+                    <li>500 créditos diários</li>
+                    <li>Acesso ilimitado</li>
+                    <li>Suporte 24/7</li>
+                    <li>Análise avançada</li>
+                    <li>API access</li>
+                </ul>
+                <button class="plan-button" onclick="window.location.href='/auth.html?plan=pro'">Assinar</button>
+            </div>
+        </div>
+
+        <footer class="app-footer">
+            <div class="footer-links">
+                <a href="https://termos.cici.net.br" target="_blank">Termos de Uso</a>
+                <a href="https://privacidade.cici.net.br" target="_blank">Política de Privacidade</a>
+                <a href="#" onclick="openCookieSettings()">Configurações de Cookies</a>
+            </div>
+            <p>&copy; 2024 Telos AI. Todos os direitos reservados.</p>
+        </footer>
+    </div>
+
+    <script>
+        function openCookieSettings() {
+            // Implement cookie consent settings
+            alert('Configurações de cookies serão abertas aqui');
+        }
+
+        // LGPD Cookie Consent
+        window.addEventListener('load', function() {
+            if (!localStorage.getItem('lgpdConsent')) {
+                showCookieBanner();
+            }
+        });
+
+        function showCookieBanner() {
+            const banner = document.createElement('div');
+            banner.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                left: 20px;
+                right: 20px;
+                background: white;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+                z-index: 1000;
+                text-align: center;
+            `;
+            banner.innerHTML = `
+                <p>Este site utiliza cookies para melhorar sua experiência. Ao continuar navegando, você concorda com nossa <a href="https://privacidade.cici.net.br">Política de Privacidade</a>.</p>
+                <button onclick="acceptCookies()" style="background: #6366f1; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-top: 10px;">Aceitar</button>
+            `;
+            document.body.appendChild(banner);
+        }
+
+        function acceptCookies() {
+            localStorage.setItem('lgpdConsent', 'true');
+            document.querySelector('[style*="position: fixed; bottom: 20px;"]').remove();
+        }
+    </script>
+</body>
+</html>
