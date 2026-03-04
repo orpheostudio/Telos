@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações - Telos AI</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="settings-container">
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem;">
+            <button onclick="window.location.href='/chat.html'" style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">←</button>
+            <svg width="40" height="40" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="45" fill="#6366f1" />
+                <text x="50" y="70" font-size="40" text-anchor="middle" fill="white" font-family="Arial" font-weight="bold">T</text>
+            </svg>
+            <h1>Configurações</h1>
+        </div>
+
+        <div class="settings-section">
+            <h3>Perfil</h3>
+            <div class="settings-item">
+                <span>Nome</span>
+                <span id="profile-name">Carregando...</span>
+            </div>
+            <div class="settings-item">
+                <span>Email</span>
+                <span id="profile-email">Carregando...</span>
+            </div>
+            <div class="settings-item">
+                <span>Plano atual</span>
+                <span id="profile-plan">Free</span>
+            </div>
+        </div>
+
+        <div class="settings-section">
+            <h3>Créditos e Uso</h3>
+            <div class="settings-item">
+                <span>Créditos disponíveis</span>
+                <span id="credits-available">0</span>
+            </div>
+            <div class="settings-item">
+                <span>Créditos usados hoje</span>
+                <span id="credits-used">0</span>
+            </div>
+            <div class="settings-item">
+                <span>Total de mensagens</span>
+                <span id="total-messages">0</span>
+            </div>
+        </div>
+
+        <div class="settings-section">
+            <h3>Preferências</h3>
+            <div class="settings-item">
+                <span>Idioma</span>
+                <select id="language">
+                    <option value="pt-BR">Português (Brasil)</option>
+                    <option value="en">English</option>
+                </select>
+            </div>
+            <div class="settings-item">
+                <span>Tema</span>
+                <select id="theme">
+                    <option value="light">Claro</option>
+                    <option value="dark">Escuro</option>
+                </select>
+            </div>
+            <div class="settings-item">
+                <span>Notificações</span>
+                <input type="checkbox" id="notifications" checked>
+            </div>
+        </div>
+
+        <div class="settings-section">
+            <h3>Privacidade e Dados</h3>
+            <div class="settings-item">
+                <span>Exportar dados</span>
+                <button class="plan-button" style="width: auto;" onclick="exportData()">Exportar</button>
+            </div>
+            <div class="settings-item">
+                <span>Excluir histórico</span>
+                <button class="plan-button" style="width: auto; background: #ef4444;" onclick="deleteHistory()">Excluir</button>
+            </div>
+            <div class="settings-item">
+                <span>Excluir conta</span>
+                <button class="plan-button" style="width: auto; background: #dc2626;" onclick="deleteAccount()">Excluir</button>
+            </div>
+        </div>
+
+        <div class="settings-section">
+            <h3>Planos</h3>
+            <div class="plans-container" style="margin: 0;">
+                <div class="plan-card">
+                    <div class="plan-name">Básico</div>
+                    <div class="plan-price">R$ 9,99 <span>/mês</span></div>
+                    <button class="plan-button" onclick="upgradePlan('basic')">Upgrade</button>
+                </div>
+                <div class="plan-card popular">
+                    <div class="plan-name">Profissional</div>
+                    <div class="plan-price">R$ 29,99 <span>/mês</span></div>
+                    <button class="plan-button" onclick="upgradePlan('pro')">Upgrade</button>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem;">
+            <button class="cta-secondary" onclick="logout()">Sair da Conta</button>
+        </div>
+    </div>
+
+    <script type="module">
+        import { AuthManager } from './js/auth.js';
+        import { CreditsManager } from './js/credits.js';
+        
+        const auth = new AuthManager();
+        
+        async function loadSettings() {
+            const user = await auth.getCurrentUser();
+            if (user) {
+                const profile = await auth.getUserProfile(user.id);
+                if (profile) {
+                    document.getElementById('profile-name').textContent = profile.full_name || 'Usuário';
+                    document.getElementById('profile-email').textContent = profile.email;
+                    document.getElementById('profile-plan').textContent = profile.subscription_tier || 'Free';
+                    document.getElementById('credits-available').textContent = profile.credits || 0;
+                    document.getElementById('credits-used').textContent = profile.daily_credits_used || 0;
+                    
+                    // Load usage stats
+                    const creditsManager = new CreditsManager(user.id);
+                    const stats = await creditsManager.getUsageStats();
+                    
+                    let totalMessages = 0;
+                    stats.forEach(stat => {
+                        totalMessages += stat.tokens_used || 0;
+                    });
+                    document.getElementById('total-messages').textContent = totalMessages;
+                }
+            }
+        }
+        
+        window.exportData = function() {
+            alert('Função de exportação de dados será implementada em breve.');
+        };
+        
+        window.deleteHistory = function() {
+            if (confirm('Tem certeza que deseja excluir todo seu histórico de conversas? Esta ação não pode ser desfeita.')) {
+                alert('Histórico excluído com sucesso!');
+            }
+        };
+        
+        window.deleteAccount = function() {
+            if (confirm('Tem certeza que deseja excluir sua conta? Todos os seus dados serão permanentemente removidos.')) {
+                alert('Conta excluída com sucesso!');
+                window.location.href = '/landing.html';
+            }
+        };
+        
+        window.upgradePlan = function(plan) {
+            alert(`Redirecionando para upgrade do plano ${plan}...`);
+            // Implement payment integration here
+        };
+        
+        window.logout = async function() {
+            await auth.signOut();
+        };
+        
+        loadSettings();
+    </script>
+</body>
+</html>
